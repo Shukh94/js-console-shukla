@@ -1518,54 +1518,288 @@ body {
   margin-right: 0
 }
 
-/* drawer overlaps, no shift needed */
+/* ═══════════════════════════════════════════════
+   MOBILE RESPONSIVE  (≤ 768px)
+═══════════════════════════════════════════════ */
 @media(max-width:768px) {
+
+  /* --- HEADER --- */
+  .header {
+    padding: 0 10px;
+    height: 46px;
+    gap: 6px
+  }
+
+  .logo {
+    font-size: 15px
+  }
+
+  .logo-icon {
+    width: 24px;
+    height: 24px;
+    font-size: 11px
+  }
+
+  /* Mode tabs: scrollable row, no bottom-border trick */
+  .mode-tabs {
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    gap: 2px;
+    padding-left: 4px;
+    height: 100%;
+    align-items: center
+  }
+
+  .mode-tabs::-webkit-scrollbar {
+    display: none
+  }
+
+  .m-tab {
+    padding: 5px 10px;
+    font-size: 10px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    white-space: nowrap;
+    flex-shrink: 0
+  }
+
+  .m-tab.active {
+    border-color: var(--border);
+    background: var(--surface2)
+  }
+
+  /* Hide some header items to save space */
+  .b-lv {
+    display: none
+  }
+
+  .icon-btn[title="Font size"] {
+    display: none
+  }
+
+  .font-popup {
+    display: none !important
+  }
+
+  /* ☰ menu button — show on mobile */
+  .mob-menu-btn {
+    display: flex !important
+  }
+
+  /* --- MAIN LAYOUT: vertical stack --- */
+  .main {
+    flex-direction: column;
+    overflow: auto
+  }
+
+  /* --- SIDEBAR: full-width slide-in drawer --- */
   .sidebar {
     position: fixed;
-    top: 50px;
+    top: 46px;
     left: 0;
     bottom: 0;
-    z-index: 100;
+    width: 240px !important;
+    z-index: 150;
     transform: translateX(-100%);
-    transition: transform .3s
+    transition: transform .3s cubic-bezier(.4, 0, .2, 1);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, .4);
+    opacity: 1 !important;
+    pointer-events: auto !important;
   }
 
   .sidebar.mob-open {
     transform: translateX(0)
   }
 
-  .sidebar.hidden {
-    transform: translateX(-100%);
-    width: 210px;
-    opacity: 1;
+  /* overlay behind open sidebar */
+  .sidebar.mob-open::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .4);
+    z-index: -1;
     pointer-events: auto
   }
 
-  .right-panel {
+  /* hidden class on mobile just keeps it off-screen */
+  .sidebar.hidden {
+    transform: translateX(-100%)
+  }
+
+  /* --- CENTER: takes full width --- */
+  .center {
     width: 100%;
-    border-left: none;
-    border-top: 1px solid var(--border)
+    flex: none
   }
 
+  /* --- LESSON BAR: compact --- */
+  .lesson-bar {
+    padding: 10px 14px;
+    max-height: 130px
+  }
+
+  .lb-title {
+    font-size: 13px
+  }
+
+  .lb-body {
+    font-size: 11.5px
+  }
+
+  /* --- EDITOR TOPBAR --- */
+  .ed-bar {
+    padding: 0 8px;
+    height: 40px;
+    gap: 4px;
+    flex-wrap: nowrap;
+    overflow-x: auto
+  }
+
+  .ed-name {
+    display: none
+  }
+
+  /* hide filename on mobile */
+  .ed-actions {
+    gap: 4px;
+    flex-shrink: 0
+  }
+
+  .btn {
+    padding: 5px 9px;
+    font-size: 10px
+  }
+
+  /* --- EDITOR SPLIT: vertical (editor on top, output below) --- */
   .editor-split {
-    flex-direction: column
+    flex-direction: column;
+    height: auto;
+    flex: none
   }
 
+  /* --- EDITOR PANE: fixed height on mobile --- */
+  .editor-pane {
+    height: 280px;
+    flex: none
+  }
+
+  .line-nums {
+    width: 36px;
+    padding: 10px 6px;
+    font-size: 12px
+  }
+
+  .code-area {
+    font-size: 13px;
+    padding: 10px 10px
+  }
+
+  /* --- RESIZE HANDLE: hidden --- */
   .resize-handle {
     display: none
   }
 
-  .hdr-right .b-lv {
-    display: none
+  /* --- RIGHT PANEL: full width below editor --- */
+  .right-panel {
+    width: 100% !important;
+    flex: none;
+    border-left: none;
+    border-top: 1px solid var(--border);
+    height: 320px;
+    min-height: 280px
   }
 
+  .p-tab {
+    font-size: 10px;
+    padding: 7px 2px;
+    letter-spacing: .5px
+  }
+
+  /* --- OUTPUT --- */
+  .out-content {
+    font-size: 12px
+  }
+
+  /* --- SHORTCUT BAR: hide on mobile --- */
   .shortcut-bar {
     display: none
   }
 
+  /* --- AI DRAWER: full screen on mobile --- */
+  #ai-drawer {
+    width: 100% !important;
+    top: 46px !important;
+    border-left: none !important;
+    border-top: 1px solid var(--border)
+  }
+
+  /* --- AUTOCOMPLETE: wider on mobile --- */
+  #ac-box {
+    left: 10px !important;
+    right: 10px !important;
+    width: auto !important;
+    max-width: none !important
+  }
+
+  /* --- QUIZ BOX --- */
+  .quiz-box {
+    padding: 18px;
+    max-width: 100%;
+    border-radius: 12px
+  }
+
+  .quiz-q {
+    font-size: 15px
+  }
+
+  .q-opt {
+    padding: 9px 12px;
+    font-size: 12px
+  }
+
+  /* --- TOAST: full width --- */
+  .toast-wrap {
+    right: 8px;
+    left: 8px
+  }
+
+  .toast {
+    max-width: 100%
+  }
+
+  /* --- ACHIEVEMENT --- */
+  .ach-popup {
+    width: 88%;
+    min-width: unset
+  }
+}
+
+/* Very small screens */
+@media(max-width:400px) {
+  .m-tab .dot {
+    display: none
+  }
+
   .m-tab {
-    padding: 6px 10px;
-    font-size: 10px
+    padding: 5px 8px;
+    font-size: 9.5px
+  }
+
+  .btn {
+    padding: 5px 7px;
+    font-size: 9.5px
+  }
+
+  .editor-pane {
+    height: 240px
+  }
+
+  .right-panel {
+    height: 280px
   }
 }
 
